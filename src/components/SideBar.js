@@ -22,6 +22,7 @@ export const SideBar = () => {
     <Box
       bg="gray.900"
       w={{ base: "100%", md: "240px" }} 
+      minWidth={"200px"}
       h="123vh"
       p="20px"
       color="white"
@@ -42,29 +43,12 @@ export const SideBar = () => {
           <Icon as={ChevronRightIcon} mr="2" />
           Crop Recommendations
         </Link>
-        <Link color="gray.400" href="#">
-          <Icon as={SettingsIcon} mr="2" />
-          Settings
+        <Link as={RouterLink} to="/direct-sales-facilitation" color="gray.400">
+          <Icon as={ChevronRightIcon} mr="2" />
+          Direct Sales Facilitation
         </Link>
       </VStack>
     </Box>
   );
 };
 
-const App = () => {
-  return (
-    <Router>
-      <Flex minH="100vh"> 
-        <SideBar /> 
-        <Box flex="1" p="4"> 
-          <Routes>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/weather" element={<Weather />} />
-          </Routes>
-        </Box>
-      </Flex>
-    </Router>
-  );
-};
-
-export default App;

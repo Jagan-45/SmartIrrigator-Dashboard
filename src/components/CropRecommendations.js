@@ -9,17 +9,18 @@ export const CropRecommendations = () => {
   return (
     <Box
       bgImage={backgroundImage}
-    //   bgColor={'rgba(0,0,0,0.5)'}
-      bgSize="cover"
-      bgPosition="center"
-      width={'100%'}
-      minH="100vh"
-      display="flex"
-      alignItems="center"
-      justifyContent="center"
-      textAlign="center"
-      p={5}
-      color="white"
+    bgSize="contain" 
+    bgPosition="center top" 
+    width={'100%'}
+    minH="100vh"
+    display="flex"
+    alignItems="center"
+    justifyContent="center"
+    textAlign="center"
+    p={5}
+    color="white"
+    opacity={0.8} 
+    objectFit="contain" 
     >
       <Flex direction="column" alignItems="center">
         <Text fontSize="4xl" fontWeight="bold" mb={4}>
