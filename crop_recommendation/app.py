@@ -1,9 +1,13 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
+import pandas as pd
 import pickle
 import numpy as np
 
 app = Flask(__name__)
+CORS(app)  # Enable CORS for all routes
 
+# Load the trained model and label encoder
 with open('crop_model.pkl', 'rb') as model_file:
     model = pickle.load(model_file)
 
@@ -12,23 +16,25 @@ with open('label_encoder.pkl', 'rb') as le_file:
 
 @app.route('/predict', methods=['POST'])
 def predict():
-    data = request.json
-    temperature = data['temperature']
-    humidity = data['humidity']
-    ph = data['ph']
-    rainfall = data['rainfall']
+    data = request.get_json()
 
-    features = np.array([[temperature, humidity, ph, rainfall]])
- 
-    prediction_probabilities = model.predict_proba(features)[0]  
-    predicted_indices = prediction_probabilities.argsort()[::-1][:5] 
+    # Check for the presence of all required features
+    required_features = ['temperature', 'humidity', 'ph', 'rainfall']
+    if not all(feature in data for feature in required_features):
+        return jsonify({"error": "Missing features in the input data."}), 400
 
-    recommended_crops = [{
-        'crop': label_encoder.inverse_transform([idx])[0],
-        'probability': round(prediction_probabilities[idx] * 100, 2)
-    } for idx in predicted_indices]
+    # Prepare the input data as a NumPy array
+    features = np.array([[data['temperature'], data['humidity'], data['ph'], data['rainfall']]])
 
-    return jsonify(recommended_crops)
+    # Make a prediction
+    try:
+        prediction = model.predict(features)
+        prediction_label = label_encoder.inverse_transform(prediction)
+
+        return jsonify({"prediction": prediction_label[0]})
+
+    except ValueError as e:
+        return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
     app.run(debug=True)

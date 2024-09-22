@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { MainDashboard } from './components/MainDashboard';
 import { SideBar } from './components/SideBar';
 import { WeatherPrediction } from './components/WeatherPrediciton';
-
+import { CropRecommendationDashBoard } from './components/CropRecommendationDashBoard';
 function App() {
   return (
     <ChakraProvider>
@@ -14,9 +14,12 @@ function App() {
           <Routes>
             <Route path="/dashboard" element={<MainDashboard />} />
             <Route path="/weather" element={<WeatherPrediction />} />
+            <Route path="/croprecommendation" element={<CropRecommendationDashBoard />} />
           </Routes>
         </Flex>
+      
       </Router>
+
     </ChakraProvider>
   );
 }

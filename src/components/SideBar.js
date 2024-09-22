@@ -38,6 +38,10 @@ export const SideBar = () => {
           <Icon as={ChevronRightIcon} mr="2" />
           Weather Prediction
         </Link>
+        <Link as={RouterLink} to="/croprecommendation" color="gray.400">
+          <Icon as={ChevronRightIcon} mr="2" />
+         Crop Recommendation
+        </Link>
         <Link color="gray.400" href="#">
           <Icon as={SettingsIcon} mr="2" />
           Settings
