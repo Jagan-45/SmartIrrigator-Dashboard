@@ -1,13 +1,28 @@
-import { Box, VStack, Link, Text, Icon } from '@chakra-ui/react';
-import { ChevronRightIcon, SettingsIcon, StarIcon } from '@chakra-ui/icons';
+import "../App.css";
+
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  Box,
+  Flex,
+  VStack,
+  Link,
+  Text,
+  Icon,
+} from "@chakra-ui/react";
+import { ChevronRightIcon, SettingsIcon, StarIcon } from "@chakra-ui/icons";
+import { Link as RouterLink } from "react-router-dom";
+
+
+const Dashboard = () => <div>Dashboard Content</div>;
+const Weather = () => <div>Weather Content</div>;
 
 export const SideBar = () => {
   return (
     <Box
       bg="gray.900"
-      w={{ base: '100%', md: '240px' }} // adjust width based on screen size
-      h="122vh" // set height to 100vh
-      flexGrow="1" // make the sidebar take up the remaining height
+      w={{ base: "100%", md: "240px" }} 
+      h="123vh"
       p="20px"
       color="white"
     >
@@ -15,13 +30,13 @@ export const SideBar = () => {
         Smart India's <span className="title">Intellirrigator</span>
       </Text>
       <VStack align="start" spacing="4">
-        <Link fontWeight="bold" color="teal.300" href="#">
-          <Icon as={StarIcon} mr="2" /> {/* Replace HomeIcon with StarIcon or any other valid icon */}
+        <Link as={RouterLink} to="/dashboard" fontWeight="bold" color="teal.300">
+          <Icon as={StarIcon} mr="2" />
           Main Dashboard
         </Link>
-        <Link color="gray.400" href="#">
+        <Link as={RouterLink} to="/weather" color="gray.400">
           <Icon as={ChevronRightIcon} mr="2" />
-          Other Section
+          Weather Prediction
         </Link>
         <Link color="gray.400" href="#">
           <Icon as={SettingsIcon} mr="2" />
@@ -31,3 +46,21 @@ export const SideBar = () => {
     </Box>
   );
 };
+
+const App = () => {
+  return (
+    <Router>
+      <Flex minH="100vh"> 
+        <SideBar /> 
+        <Box flex="1" p="4"> 
+          <Routes>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/weather" element={<Weather />} />
+          </Routes>
+        </Box>
+      </Flex>
+    </Router>
+  );
+};
+
+export default App;

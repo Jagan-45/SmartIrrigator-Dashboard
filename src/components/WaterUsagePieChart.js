@@ -1,4 +1,4 @@
-// src/components/PieChart.js
+
 import { Box, Text } from '@chakra-ui/react';
 import { PieChart, Pie, Tooltip, Cell, ResponsiveContainer } from 'recharts';
 
